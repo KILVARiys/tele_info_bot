@@ -13,12 +13,8 @@ async def handle_start(message: Message):
 
 @router.message(Command('retry'))
 async def handle_retry(message: Message):
-    await message.answer(text=f'{message.from_user.id}, {message.from_user.full_name}')
+    await message.answer(text=f'{message.from_user.id}, {message.from_user.full_name}, {message.from_user.username}')
 
-@router.message(Command('help'))
-async def handle_lol(message: Message):
-    await message.answer(text='Hi l say you LOL')
-    
 # Команда /add_me — запрашивает номер телефона
 @router.message(Command('add_me'))
 async def handle_adding(message: Message):
@@ -34,10 +30,11 @@ async def handle_contact(message: Message):
     if message.contact:
         user_id = str(message.from_user.id)
         username = message.from_user.full_name
+        dname = message.from_user.username
         phone = message.contact.phone_number
 
         # Передача данных в БД
-        create_profile(user_id=user_id, username=username, phone=phone)
+        create_profile(user_id=user_id, username=username, dogname=dname, phone=phone)
         
         await message.answer(
             f"Спасибо, {username}!\nВаш номер телефона сохранен: {phone}",
