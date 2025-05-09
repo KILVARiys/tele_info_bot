@@ -1,0 +1,24 @@
+import sqlite3 as sq
+
+# Подключаемся к базе данных
+db = sq.connect('users.db')
+cur = db.cursor()
+
+# Функция для создания таблицы, если её нет
+def db_start():
+    cur.execute("CREATE TABLE IF NOT EXISTS profile (user_id TEXT PRIMARY KEY, username TEXT, phone TEXT)")
+    db.commit()
+    #Логирование
+    print("Таблица profile создана или уже существует")
+
+# Функция для создания профиля
+def create_profile(user_id, username, phone):
+    user = cur.execute("SELECT 1 FROM profile WHERE user_id = ?", (user_id,)).fetchone()
+    if not user:
+        cur.execute("INSERT INTO profile (user_id, username, phone) VALUES (?, ?, ?)", (user_id, username, phone))
+        db.commit()
+        #Логирование
+        print(f"Профиль {username} добавлен")
+
+# Выполняем функции
+db_start()
