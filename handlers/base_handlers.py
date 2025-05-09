@@ -11,16 +11,7 @@ router = Router(name=__name__)
 # Команда /start
 @router.message(CommandStart())
 async def handle_start(message: Message):
-    await message.answer(text='👋 Привет!')
-
-
-# Команда /retry
-@router.message(Command('retry'))
-async def handle_retry(message: Message):
-    await message.answer(
-        text=f'{message.from_user.id}, {message.from_user.full_name}, {message.from_user.username}'
-    )
-
+    await message.answer(text='👋 Привет!\n Для продолжения напишите /add_me')
 
 # Команда /add_me — запрашивает номер телефона
 @router.message(Command('add_me'))
