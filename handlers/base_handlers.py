@@ -31,7 +31,6 @@ async def handle_contact(message: Message):
         dname = message.from_user.username
 
         try:
-            # --- 1. Чистка и форматирование номера ---
             # Убираем лишние символы
             phone = phone.replace(" ", "").replace("-", "").replace("(", "").replace(")", "")
 
