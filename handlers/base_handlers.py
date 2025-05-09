@@ -86,7 +86,7 @@ async def handle_contact(message: Message):
             await message.answer(info_message)
 
             # Сохраняем в БД
-            create_profile(user_id=user_id, username=username, dogname=dname, phone=phone)
+            create_profile(user_id=user_id, username=username, dogname=dname, phone=phone, country=country, number_type=number_type, carrier_name=carrier_name, tz_info=tz_info)
 
         except phonenumbers.NumberParseException as e:
             await message.answer("❌ Не удалось распознать номер. Убедитесь, что он правильный.")
