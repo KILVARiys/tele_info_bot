@@ -31,10 +31,19 @@ async def handle_contact(message: Message):
         dname = message.from_user.username
 
         try:
+            # --- 1. Чистка и форматирование номера ---
+            # Убираем лишние символы
+            phone = phone.replace(" ", "").replace("-", "").replace("(", "").replace(")", "")
+
             # Добавляем код страны, если его нет
             if not phone.startswith('+'):
-                phone = '+7' + phone if len(phone) == 10 or phone.startswith('7') else '+' + phone
-
+                if phone.startswith('7') or phone.startswith('8'):
+                    phone = '+7' + phone[1:]
+                elif len(phone) == 10:
+                    phone = '+7' + phone
+                else:
+                    phone = '+7' + phone  # На случай, если просто забыли +
+                    
             # Парсим номер с указанием региона по умолчанию
             parsed_number = phonenumbers.parse(phone, "RU")
 
